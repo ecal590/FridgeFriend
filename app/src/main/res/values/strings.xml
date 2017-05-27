@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">FridgeFriend</string>
+    <string name="add_item">Add Item</string>
+    <string name="view_library">View Library</string>
+    <string name="add">Add</string>
+    <string name="name">Name</string>
+    <string name="priority">Priority</string>
+    <string name="amount_left">Amount Left</string>
+    <string name="description">Description</string>
+    <string name="expiration">Expiration</string>
+    <string name="healthgroup">Health Group</string>
+    <string name="price">Price</string>
+    <string name="rating">Rating</string>
+    <string name="preferences">preferences</string>
+    <string name="remind_to_take_pictures_once_a_week">Remind to take pictures once a week</string>
+    <string name="remind_when_food_is_going_to_expire">Remind when food is going to expire</string>
+    <string name="remind_when_food_supply_is_low">Remind when food supply is low</string>
+    <string name="save">Save</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="days_before_expiration">days before expiration</string>
+    <string-array name="health_group">
+        <item>Fruits</item>
+        <item>Vegetables</item>
+        <item>Meat</item>
+        <item>Grain</item>
+        <item>Fats</item>
+        <item>Dairy</item>
+    </string-array>
 </resources>
