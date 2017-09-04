@@ -23,7 +23,12 @@
         <item>Vegetables</item>
         <item>Meat</item>
         <item>Grain</item>
-        <item>Fats</item>
         <item>Dairy</item>
+        <item>Drinks</item>
+        <item>Oils</item>
+        <item>Desserts</item>
+        <item>Snacks</item>
+        <item>Dressing</item>
+        <item>Seasoning</item>
     </string-array>
 </resources>

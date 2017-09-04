@@ -1,4 +1,4 @@
-package com.example.ebonycalloway.fridgefriend;
+package com.example.ebonycalloway.fridgefriend.View;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import com.example.ebonycalloway.fridgefriend.R;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+//TODO: Full content backup in manifest?
+        //TODO: Action-View intent filer, indexable by Google Search
     }
 }
