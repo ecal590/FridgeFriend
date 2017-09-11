@@ -52,17 +52,33 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     //Add a new row to the database
     public void addFood(Food food){
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_FOODNAME, food.getName());
-        values.put(COLUMN_FOODDESCRIPTION,food.getDescription());
-        values.put(COLUMN_FOODAMOUNT, food.getAmountLeft());
-        values.put(COLUMN_FOODPRICE, food.getPrice());
-        values.put(COLUMN_FOODEXPIRATION,food.getExpiration());
-        values.put(COLUMN_FOODRATING, food.getRating());
-        values.put(COLUMN_FOODHEALTH,food.getHealthGroup());
-        SQLiteDatabase db = getWritableDatabase();
-        db.insert(TABLE_FOOD, null, values);
-        db.close();
+        if(selectFood(food.getName(),food.getDescription()).equals("")) {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_FOODNAME, food.getName());
+            values.put(COLUMN_FOODDESCRIPTION, food.getDescription());
+            values.put(COLUMN_FOODAMOUNT, food.getAmountLeft());
+            values.put(COLUMN_FOODPRICE, food.getPrice());
+            values.put(COLUMN_FOODEXPIRATION, food.getExpiration());
+            values.put(COLUMN_FOODRATING, food.getRating());
+            values.put(COLUMN_FOODHEALTH, food.getHealthGroup());
+            SQLiteDatabase db = getWritableDatabase();
+            db.insert(TABLE_FOOD, null, values);
+            db.close();
+        }
+        else{
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_FOODNAME, food.getName());
+            values.put(COLUMN_FOODDESCRIPTION, food.getDescription());
+            values.put(COLUMN_FOODAMOUNT, food.getAmountLeft());
+            values.put(COLUMN_FOODPRICE, food.getPrice());
+            values.put(COLUMN_FOODEXPIRATION, food.getExpiration());
+            values.put(COLUMN_FOODRATING, food.getRating());
+            values.put(COLUMN_FOODHEALTH, food.getHealthGroup());
+            SQLiteDatabase db = getWritableDatabase();
+            String tempString = "foodname =\"" + food.getName()+ "\" AND " + "fooddescription =\"" + food.getDescription() +"\"";
+            db.update(TABLE_FOOD, values, tempString,null);
+            db.close();
+        }
     }
     public void editFood(Food food){/*public boolean updatePerson(Integer id, String name, String gender, int age) {
     SQLiteDatabase db = this.getWritableDatabase();
@@ -73,7 +89,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     db.update(PERSON_TABLE_NAME, contentValues, PERSON_COLUMN_ID + " = ? ", new String[] { Integer.toString(id) } );
     return true;
 }*/
-        String query = "INSERT ";//TODO: Update person
+        String query = "INSERT ";//TODO: Update food
     }
     //Delete food from the database
     public void deleteFood(String foodName){
@@ -85,15 +101,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public String selectFood(String foodName, String description){
         SQLiteDatabase db = getWritableDatabase();
         String dbString = "";
-        String query = "SELECT * FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODNAME + "=\"" + foodName + " AND " + COLUMN_FOODDESCRIPTION + "=\"" +  description + "\";";
+        String query = "SELECT * FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODNAME + "=\"" + foodName + "\"" + " AND " + COLUMN_FOODDESCRIPTION + "=\"" +  description + "\";";
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
 
         while (!c.isAfterLast()) {
             if (c.getString(c.getColumnIndex("foodname")) != null) {
                 dbString += c.getString(c.getColumnIndex("foodname"));
-                dbString += ",";
-                dbString += c.getString(c.getColumnIndex("fooddescription"));
                 dbString += ",";
                 dbString += c.getString(c.getColumnIndex("fooddescription"));
                 dbString += ",";

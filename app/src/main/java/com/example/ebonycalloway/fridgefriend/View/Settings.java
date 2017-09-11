@@ -44,7 +44,7 @@ public class Settings extends AppCompatActivity {
         remindPics.setChecked(shared.getBoolean("PicRemind",false));
         remindExpire.setChecked(shared.getBoolean("ExpireRemind",false));
         remindLow.setChecked(shared.getBoolean("LowRemind",false));
-        daysExpire.setText(shared.getInt("DaysExpire",0));
+        daysExpire.setText(shared.getInt("DaysExpire",0) + "");
 
 
     }
@@ -54,9 +54,9 @@ public class Settings extends AppCompatActivity {
         boolean picRemind,expireRemind,lowRemind;
         int daysToExpire;
 
-        picRemind = remindPics.isEnabled();
-        expireRemind = remindExpire.isEnabled();
-        lowRemind = remindLow.isEnabled();
+        picRemind = remindPics.isChecked();
+        expireRemind = remindExpire.isChecked();
+        lowRemind = remindLow.isChecked();
         daysToExpire = 0 + Integer.parseInt(daysExpire.getText().toString());
 
         SharedPreferences shared = this.getSharedPreferences("Settings",MODE_PRIVATE);

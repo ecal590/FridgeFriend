@@ -13,7 +13,7 @@ public class Food {
     private double price;
     private String expiration;
     private double rating;
-    private String healthGroup;
+    private int healthGroup;
 
     @Override
     public String toString() {
@@ -76,11 +76,11 @@ public class Food {
         this.rating = rating;
     }
 
-    public String getHealthGroup() {
+    public int getHealthGroup() {
         return healthGroup;
     }
 
-    public void setHealthGroup(String healthGroup) {
+    public void setHealthGroup(int healthGroup) {
         this.healthGroup = healthGroup;
     }
 }

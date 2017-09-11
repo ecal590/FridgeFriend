@@ -52,17 +52,18 @@ public class AddItem extends AppCompatActivity {
 
         //Get Intent Info
         Intent i = getIntent();
-        String[] values = i.getStringExtra(Intent.EXTRA_TEXT).split(",");
+        if(i.hasExtra(Intent.EXTRA_TEXT)) {
+            String[] values = i.getStringExtra(Intent.EXTRA_TEXT).split(",");
 
-        foodName.setText(values[0]);
-        foodDescription.setText(values[1]);
-        amountLeft.setText(values[2]);
-        price.setText(values[3]);
-        expiration.setText(values[4]);
-        ratingBar.setNumStars(Integer.parseInt(values[5]));
-        SpinnerAdapter tempAdapt = (SpinnerAdapter) ((Spinner) findViewById(R.id.groupSpinner)).getAdapter();
-        int tempInt = (int) tempAdapt.getItem(Integer.parseInt(values[6]));
-        spinner.setSelection(tempInt);
+            foodName.setText(values[0]);
+            foodDescription.setText(values[1]);
+            amountLeft.setText(values[2]);
+            price.setText(values[3]);
+            expiration.setText(values[4]);
+            ratingBar.setRating(Float.parseFloat(values[5]));
+            int tempInt = Integer.parseInt(values[6].split(";")[0]);
+            spinner.setSelection(tempInt);
+        }
     }
 
     public void addFood(){
@@ -74,7 +75,7 @@ public class AddItem extends AppCompatActivity {
         String thing = expiration.getText().toString();
         newFood.setExpiration(thing);
         newFood.setRating((double)ratingBar.getRating());
-        newFood.setHealthGroup((String) spinner.getSelectedItem());
+        newFood.setHealthGroup(spinner.getSelectedItemPosition());
         dbHandler = new MyDBHandler(this, null, null, 1);
         dbHandler.addFood(newFood);
         //TODO: Expiration date?
@@ -82,4 +83,4 @@ public class AddItem extends AppCompatActivity {
         startActivity(i);
     }
 }
-//TODO: Put date of expiration not the number of days for each food
+//TODO: Put date of expiration not the number of days for each food, expiration reminder

@@ -36,7 +36,7 @@ public class FoodLibrary extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                         String foodName = String.valueOf(parent.getItemAtPosition(position)).split(":")[0];
-                        String description = String.valueOf(parent.getItemAtPosition(position)).split(":")[2];
+                        String description = String.valueOf(parent.getItemAtPosition(position)).split(":")[1];
                         String extras = dbHandler.selectFood(foodName,description);
                         Intent i = new Intent(FoodLibrary.this, AddItem.class);
                         i.putExtra(Intent.EXTRA_TEXT, extras);
@@ -59,12 +59,19 @@ public class FoodLibrary extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dbHandler.deleteFood(foodN);
                                 Toast.makeText(FoodLibrary.this, foodN + " was removed", Toast.LENGTH_LONG).show();
+                                dialogInterface.dismiss();
                                 Intent i2 = new Intent(FoodLibrary.this, FoodLibrary.class);
                                 startActivity(i2);
                             }
 
                         });
-
+                        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        alert.show();
                         return true;//TODO: Delete should be more specific not just name
                     }
 
