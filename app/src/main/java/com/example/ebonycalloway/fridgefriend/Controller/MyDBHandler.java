@@ -81,10 +81,45 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODNAME + "=\"" + foodName + "\";");
     }
 
+    //Delete food from the database
+    public String selectFood(String foodName, String description){
+        SQLiteDatabase db = getWritableDatabase();
+        String dbString = "";
+        String query = "SELECT * FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODNAME + "=\"" + foodName + " AND " + COLUMN_FOODDESCRIPTION + "=\"" +  description + "\";";
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("foodname")) != null) {
+                dbString += c.getString(c.getColumnIndex("foodname"));
+                dbString += ",";
+                dbString += c.getString(c.getColumnIndex("fooddescription"));
+                dbString += ",";
+                dbString += c.getString(c.getColumnIndex("fooddescription"));
+                dbString += ",";
+                dbString += c.getInt(c.getColumnIndex("foodamount"));
+                dbString += ",";
+                dbString += c.getDouble(c.getColumnIndex("foodprice"));
+                dbString += ",";
+                dbString += c.getLong(c.getColumnIndex("foodexpiration"));
+                dbString += ",";
+                dbString += c.getDouble(c.getColumnIndex("foodrating"));
+                dbString += ",";
+                dbString += c.getString(c.getColumnIndex("foodhealth"));
+                dbString += ";";
+            }
+            c.moveToNext();
+        }
+        c.close();
+        db.close();
+        return dbString;
+
+    }
+
     public String databaseToString(){
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1";
+        String query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODNAME;
 
         //Cursor points to a location in your results
         Cursor c = db.rawQuery(query, null);
@@ -104,5 +139,42 @@ public class MyDBHandler extends SQLiteOpenHelper {
         c.close();
         db.close();
         return dbString;
+    }
+    public String fullInfo(){
+        String dbString = "";
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1";
+
+        //Cursor points to a location in your results
+        Cursor c = db.rawQuery(query, null);
+        //Move to the first row in your results
+        c.moveToFirst();
+
+        //Position after the last row means the end of the results
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("foodname")) != null) {
+                dbString += c.getString(c.getColumnIndex("foodname"));
+                dbString += ",";
+                dbString += c.getString(c.getColumnIndex("fooddescription"));
+                dbString += ",";
+                dbString += c.getString(c.getColumnIndex("fooddescription"));
+                dbString += ",";
+                dbString += c.getInt(c.getColumnIndex("foodamount"));
+                dbString += ",";
+                dbString += c.getDouble(c.getColumnIndex("foodprice"));
+                dbString += ",";
+                dbString += c.getLong(c.getColumnIndex("foodexpiration"));
+                dbString += ",";
+                dbString += c.getDouble(c.getColumnIndex("foodrating"));
+                dbString += ",";
+                dbString += c.getString(c.getColumnIndex("foodhealth"));
+                dbString += ";";
+            }
+            c.moveToNext();
+        }
+        c.close();
+        db.close();
+        return dbString;
+
     }
 }

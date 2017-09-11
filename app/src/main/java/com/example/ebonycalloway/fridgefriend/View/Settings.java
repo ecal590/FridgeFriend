@@ -39,6 +39,14 @@ public class Settings extends AppCompatActivity {
                 saveSettings(view);
             }
         });
+        SharedPreferences shared = this.getSharedPreferences("Settings",MODE_PRIVATE);
+
+        remindPics.setChecked(shared.getBoolean("PicRemind",false));
+        remindExpire.setChecked(shared.getBoolean("ExpireRemind",false));
+        remindLow.setChecked(shared.getBoolean("LowRemind",false));
+        daysExpire.setText(shared.getInt("DaysExpire",0));
+
+
     }
     public void saveSettings(View view){
         Intent intent = new Intent(this,MainActivity.class);
@@ -49,7 +57,7 @@ public class Settings extends AppCompatActivity {
         picRemind = remindPics.isEnabled();
         expireRemind = remindExpire.isEnabled();
         lowRemind = remindLow.isEnabled();
-        daysToExpire = Integer.parseInt(daysExpire.getText().toString());
+        daysToExpire = 0 + Integer.parseInt(daysExpire.getText().toString());
 
         SharedPreferences shared = this.getSharedPreferences("Settings",MODE_PRIVATE);
         SharedPreferences.Editor editor = shared.edit();
@@ -57,6 +65,7 @@ public class Settings extends AppCompatActivity {
         editor.putBoolean("ExpireRemind",expireRemind);
         editor.putBoolean("LowRemind",lowRemind);
         editor.putInt("DaysExpire",daysToExpire);
+        editor.commit();
 
         Context context = getApplicationContext();
         CharSequence text = "Saved";

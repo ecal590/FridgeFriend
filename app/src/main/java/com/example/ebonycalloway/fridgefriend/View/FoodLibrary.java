@@ -1,6 +1,8 @@
 package com.example.ebonycalloway.fridgefriend.View;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,8 +35,12 @@ public class FoodLibrary extends AppCompatActivity {
                 new AdapterView.OnItemClickListener(){
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                        String food = String.valueOf(parent.getItemAtPosition(position));
-                        Toast.makeText(FoodLibrary.this, food, Toast.LENGTH_LONG).show();
+                        String foodName = String.valueOf(parent.getItemAtPosition(position)).split(":")[0];
+                        String description = String.valueOf(parent.getItemAtPosition(position)).split(":")[2];
+                        String extras = dbHandler.selectFood(foodName,description);
+                        Intent i = new Intent(FoodLibrary.this, AddItem.class);
+                        i.putExtra(Intent.EXTRA_TEXT, extras);
+                        startActivity(i);
 
                     }
 
@@ -44,12 +50,22 @@ public class FoodLibrary extends AppCompatActivity {
                 new AdapterView.OnItemLongClickListener(){
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
-                        String foodN = String.valueOf(parent.getItemAtPosition(position)).split(":")[0];
-                        dbHandler.deleteFood(foodN);
-                        Toast.makeText(FoodLibrary.this, foodN + " was removed", Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(FoodLibrary.this, FoodLibrary.class);
-                        startActivity(i);
-                        return true;//TODO: Make sure remove toast shows
+                        final String foodN = String.valueOf(parent.getItemAtPosition(position)).split(":")[0];
+                        AlertDialog.Builder alert = new AlertDialog.Builder(FoodLibrary.this);
+                        alert.setTitle("Delete");
+                        alert.setMessage("Are you sure you want to delete?");
+                        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dbHandler.deleteFood(foodN);
+                                Toast.makeText(FoodLibrary.this, foodN + " was removed", Toast.LENGTH_LONG).show();
+                                Intent i2 = new Intent(FoodLibrary.this, FoodLibrary.class);
+                                startActivity(i2);
+                            }
+
+                        });
+
+                        return true;//TODO: Delete should be more specific not just name
                     }
 
                 }

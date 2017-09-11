@@ -105,7 +105,7 @@
         android:id="@+id/dayseditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:ems="7"
         android:inputType="number"
         tools:layout_constraintTop_creator="1"
         android:layout_marginStart="16dp"
@@ -127,5 +127,6 @@
         app:layout_constraintLeft_toRightOf="@+id/dayseditText"
         tools:layout_constraintBaseline_creator="1"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="147dp" />
+        android:layout_marginBottom="147dp"
+        android:layout_marginRight="2dp" />
 </android.support.constraint.ConstraintLayout>

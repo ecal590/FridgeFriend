@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import com.example.ebonycalloway.fridgefriend.Controller.MyDBHandler;
 import com.example.ebonycalloway.fridgefriend.POJO.Food;
@@ -47,6 +49,20 @@ public class AddItem extends AppCompatActivity {
                 addFood();
             }
         });
+
+        //Get Intent Info
+        Intent i = getIntent();
+        String[] values = i.getStringExtra(Intent.EXTRA_TEXT).split(",");
+
+        foodName.setText(values[0]);
+        foodDescription.setText(values[1]);
+        amountLeft.setText(values[2]);
+        price.setText(values[3]);
+        expiration.setText(values[4]);
+        ratingBar.setNumStars(Integer.parseInt(values[5]));
+        SpinnerAdapter tempAdapt = (SpinnerAdapter) ((Spinner) findViewById(R.id.groupSpinner)).getAdapter();
+        int tempInt = (int) tempAdapt.getItem(Integer.parseInt(values[6]));
+        spinner.setSelection(tempInt);
     }
 
     public void addFood(){
@@ -61,8 +77,9 @@ public class AddItem extends AppCompatActivity {
         newFood.setHealthGroup((String) spinner.getSelectedItem());
         dbHandler = new MyDBHandler(this, null, null, 1);
         dbHandler.addFood(newFood);
-
+        //TODO: Expiration date?
         Intent i = new Intent(AddItem.this, FoodLibrary.class);
         startActivity(i);
     }
 }
+//TODO: Put date of expiration not the number of days for each food
