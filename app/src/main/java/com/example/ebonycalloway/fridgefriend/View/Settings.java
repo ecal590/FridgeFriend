@@ -19,6 +19,7 @@ public class Settings extends AppCompatActivity {
     ToggleButton remindExpire;
     ToggleButton remindLow;
     EditText daysExpire;
+    EditText lowAmount;
 
     Button saveButton;
 
@@ -31,6 +32,7 @@ public class Settings extends AppCompatActivity {
         remindExpire = (ToggleButton) findViewById(R.id.remindExpireToggleButton);
         remindLow = (ToggleButton) findViewById(R.id.remindLowToggleButton);
         daysExpire = (EditText) findViewById(R.id.dayseditText);
+        lowAmount = (EditText) findViewById(R.id.amountLeftEditText);
         saveButton = (Button) findViewById(R.id.saveButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +47,7 @@ public class Settings extends AppCompatActivity {
         remindExpire.setChecked(shared.getBoolean("ExpireRemind",false));
         remindLow.setChecked(shared.getBoolean("LowRemind",false));
         daysExpire.setText(shared.getInt("DaysExpire",0) + "");
+        lowAmount.setText(shared.getInt("AmountLeft",0) + "");
 
 
     }
@@ -52,12 +55,13 @@ public class Settings extends AppCompatActivity {
         Intent intent = new Intent(this,MainActivity.class);
 
         boolean picRemind,expireRemind,lowRemind;
-        int daysToExpire;
+        int daysToExpire,amountLow;
 
         picRemind = remindPics.isChecked();
         expireRemind = remindExpire.isChecked();
         lowRemind = remindLow.isChecked();
         daysToExpire = 0 + Integer.parseInt(daysExpire.getText().toString());
+        amountLow = 0 + Integer.parseInt(lowAmount.getText().toString());
 
         SharedPreferences shared = this.getSharedPreferences("Settings",MODE_PRIVATE);
         SharedPreferences.Editor editor = shared.edit();
@@ -65,6 +69,7 @@ public class Settings extends AppCompatActivity {
         editor.putBoolean("ExpireRemind",expireRemind);
         editor.putBoolean("LowRemind",lowRemind);
         editor.putInt("DaysExpire",daysToExpire);
+        editor.putInt("AmountLeft",amountLow);
         editor.commit();
 
         Context context = getApplicationContext();

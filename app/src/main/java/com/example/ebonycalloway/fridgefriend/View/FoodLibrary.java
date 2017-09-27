@@ -24,7 +24,7 @@ public class FoodLibrary extends AppCompatActivity {
 
         final MyDBHandler dbHandler;
         dbHandler = new MyDBHandler(this, null, null, 1);
-        String foodString = dbHandler.databaseToString();
+        String foodString = dbHandler.databaseToString("alpha");
         ListView foodLV = (ListView) findViewById(R.id.foodListView);
         if(!foodString.equals("")) {
             String[] foods = foodString.split(";");
@@ -51,28 +51,34 @@ public class FoodLibrary extends AppCompatActivity {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
                         final String foodN = String.valueOf(parent.getItemAtPosition(position)).split(":")[0];
+                        final String foodD = String.valueOf(parent.getItemAtPosition(position)).split(":")[1];
                         AlertDialog.Builder alert = new AlertDialog.Builder(FoodLibrary.this);
-                        alert.setTitle("Delete");
-                        alert.setMessage("Are you sure you want to delete?");
-                        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                        alert.setTitle("Delete or Shopping List");
+                        alert.setMessage("Do you want to delete the item or add it to your shopping list?");
+                        CharSequence choice[] = new CharSequence[]{"Delete","Shopping List","Cancel"};
+                        alert.setPositiveButton("Delete",new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dbHandler.deleteFood(foodN);
+                            public void onClick(DialogInterface dialog, int i) {
+                                dbHandler.deleteFood(foodN, foodD);
                                 Toast.makeText(FoodLibrary.this, foodN + " was removed", Toast.LENGTH_LONG).show();
-                                dialogInterface.dismiss();
+                                dialog.dismiss();
                                 Intent i2 = new Intent(FoodLibrary.this, FoodLibrary.class);
                                 startActivity(i2);
                             }
 
                         });
-                        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                        alert.setNegativeButton("ShoppingList", new DialogInterface.OnClickListener(){
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
+                                String extras = dbHandler.selectFood(foodN,foodD);
+                                Intent i2 = new Intent(FoodLibrary.this, ShoppingList.class);
+                                i2.putExtra(Intent.EXTRA_TEXT,extras);
+                                startActivity(i2);
                             }
                         });
                         alert.show();
-                        return true;//TODO: Delete should be more specific not just name
+                        return true;
                     }
 
                 }

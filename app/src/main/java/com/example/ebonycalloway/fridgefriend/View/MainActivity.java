@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.ebonycalloway.fridgefriend.Model.ShoppingListValues;
 import com.example.ebonycalloway.fridgefriend.R;
 
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton settingB = (ImageButton) findViewById(R.id.settingsButton);
         Button addB = (Button) findViewById(R.id.addItemButton);
         Button viewLibraryB = (Button) findViewById(R.id.viewLibraryButton);
+        Button shoppingListB = (Button) findViewById(R.id.shoppingListButton);
 
         settingB.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -43,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
 
+        });
+
+        shoppingListB.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, ShoppingList.class);
+                startActivity(i);
+            }
         });
 
 

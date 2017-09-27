@@ -18,12 +18,13 @@
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="@+id/viewLibraryButton"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="13dp" />
+        android:layout_marginLeft="14dp"
+        app:layout_constraintVertical_bias="0.3" />
 
     <Button
         android:id="@+id/viewLibraryButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="65dp"
         android:text="@string/view_library"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -46,4 +47,22 @@
         app:srcCompat="@android:drawable/ic_menu_preferences"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
+
+    <Button
+        android:id="@+id/shoppingListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/shopping_list"
+        app:layout_constraintTop_toBottomOf="@+id/viewLibraryButton"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginRight="0dp"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintHorizontal_bias="0.57" />
+
 </android.support.constraint.ConstraintLayout>

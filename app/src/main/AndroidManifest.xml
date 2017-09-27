@@ -13,12 +13,14 @@
         <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".View.AddItem" />
         <activity android:name=".View.FoodLibrary" />
-        <activity android:name=".View.Settings"></activity>
+        <activity android:name=".View.Settings" />
+        <activity android:name=".View.ShoppingList"></activity>
     </application>
 
 </manifest>

@@ -50,7 +50,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    //Add a new row to the database
+    //Add/update a new row in the table
     public void addFood(Food food){
         if(selectFood(food.getName(),food.getDescription()).equals("")) {
             ContentValues values = new ContentValues();
@@ -80,24 +80,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
             db.close();
         }
     }
-    public void editFood(Food food){/*public boolean updatePerson(Integer id, String name, String gender, int age) {
-    SQLiteDatabase db = this.getWritableDatabase();
-    ContentValues contentValues = new ContentValues();
-    contentValues.put(PERSON_COLUMN_NAME, name);
-    contentValues.put(PERSON_COLUMN_GENDER, gender);
-    contentValues.put(PERSON_COLUMN_AGE, age);
-    db.update(PERSON_TABLE_NAME, contentValues, PERSON_COLUMN_ID + " = ? ", new String[] { Integer.toString(id) } );
-    return true;
-}*/
-        String query = "INSERT ";//TODO: Update food
-    }
     //Delete food from the database
-    public void deleteFood(String foodName){
+    public void deleteFood(String foodName, String description){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODNAME + "=\"" + foodName + "\";");
+        db.execSQL("DELETE FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODNAME + "=\"" + foodName + "\"" + " AND " + COLUMN_FOODDESCRIPTION + "=\"" +  description + "\";");
     }
 
-    //Delete food from the database
+    //Select food from the database
     public String selectFood(String foodName, String description){
         SQLiteDatabase db = getWritableDatabase();
         String dbString = "";
@@ -130,11 +119,20 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     }
 
-    public String databaseToString(){
+
+    public String databaseToString(String order){
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODNAME;
-
+        String query;
+        if(order.equals("alpha")) {
+            query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODNAME;
+        }else if(order.equals("group")){
+            query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODHEALTH;
+        }else if(order.equals("rating")){
+            query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODRATING;
+        }else{
+            query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODEXPIRATION;
+        }
         //Cursor points to a location in your results
         Cursor c = db.rawQuery(query, null);
         //Move to the first row in your results

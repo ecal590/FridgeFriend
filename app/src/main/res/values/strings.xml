@@ -17,18 +17,23 @@
     <string name="remind_when_food_supply_is_low">Remind when food supply is low</string>
     <string name="save">Save</string>
     <string name="togglebutton">ToggleButton</string>
-    <string name="days_before_expiration">days before expiration</string>
+    <string name="days_before_expiration">days before expiration reminder</string>
+    <string name="shopping_list">Shopping List</string>
+    <string name="amount_left_reminder">amount left reminder</string>
     <string-array name="health_group">
-        <item>Fruits</item>
-        <item>Vegetables</item>
-        <item>Meat</item>
-        <item>Grain</item>
         <item>Dairy</item>
-        <item>Drinks</item>
-        <item>Oils</item>
         <item>Desserts</item>
-        <item>Snacks</item>
         <item>Dressing</item>
+        <item>Drinks</item>
+        <item>Fish</item>
+        <item>Fruits</item>
+        <item>Grain</item>
+        <item>Meat</item>
+        <item>Oils</item>
+        <item>Other</item>
+        <item>Poultry</item>
         <item>Seasoning</item>
+        <item>Snacks</item>
+        <item>Vegetables</item>
     </string-array>
 </resources>

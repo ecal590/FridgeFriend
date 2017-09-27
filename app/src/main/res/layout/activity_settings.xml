@@ -70,7 +70,7 @@
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         app:layout_constraintRight_toRightOf="@+id/remindExpireToggleButton"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="18dp"
         app:layout_constraintTop_toBottomOf="@+id/remindExpireToggleButton"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="@+id/remindExpireToggleButton"
@@ -109,24 +109,53 @@
         android:inputType="number"
         tools:layout_constraintTop_creator="1"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="18dp"
         app:layout_constraintTop_toBottomOf="@+id/remindLowToggleButton"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="10dp"
         android:text="@string/days_before_expiration"
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintLeft_toRightOf="@+id/dayseditText"
         tools:layout_constraintBaseline_creator="1"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="147dp"
+        android:layout_marginBottom="163dp"
         android:layout_marginRight="2dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/amount_left_reminder"
+        android:layout_marginEnd="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintLeft_toRightOf="@+id/amountLeftEditText"
+        tools:layout_constraintBaseline_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="100dp"
+        android:layout_marginRight="2dp" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:ems="7"
+        android:inputType="number"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dayseditText"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
 </android.support.constraint.ConstraintLayout>
