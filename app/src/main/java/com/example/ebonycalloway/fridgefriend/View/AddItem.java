@@ -80,6 +80,7 @@ public class AddItem extends AppCompatActivity {
         dbHandler.addFood(newFood);
         //TODO: Expiration date?
         Intent i = new Intent(AddItem.this, FoodLibrary.class);
+        finish();
         startActivity(i);
     }
 }
