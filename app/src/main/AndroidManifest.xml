@@ -20,7 +20,7 @@
         <activity android:name=".View.AddItem" />
         <activity android:name=".View.FoodLibrary" />
         <activity android:name=".View.Settings" />
-        <activity android:name=".View.ShoppingList"></activity>
+        <activity android:name=".View.ShoppingList" />
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.ebonycalloway.fridgefriend.Controller.MyDBHandler;
+import com.example.ebonycalloway.fridgefriend.POJO.Food;
 import com.example.ebonycalloway.fridgefriend.R;
 
 public class FoodLibrary extends AppCompatActivity {
@@ -71,9 +72,18 @@ public class FoodLibrary extends AppCompatActivity {
                         alert.setNegativeButton("ShoppingList", new DialogInterface.OnClickListener(){
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                String extras = dbHandler.selectFood(foodN,foodD);
+                                String tempFoodString = dbHandler.selectFood(foodN,foodD);
+                                Food newFood = new Food();
+                                String foodParts[] = tempFoodString.split(",");
+                                newFood.setName(foodParts[0]);
+                                newFood.setDescription(foodParts[1]);
+                                newFood.setAmountLeft(Integer.parseInt(foodParts[2]));
+                                newFood.setPrice(Integer.parseInt(foodParts[3]));
+                                newFood.setExpiration(foodParts[4]);
+                                newFood.setRating(Double.parseDouble(foodParts[5]));
+                                newFood.setShoppingList(true);
+                                dbHandler.addFood(newFood);
                                 Intent i2 = new Intent(FoodLibrary.this, ShoppingList.class);
-                                i2.putExtra(Intent.EXTRA_TEXT,extras);
                                 startActivity(i2);
                             }
                         });

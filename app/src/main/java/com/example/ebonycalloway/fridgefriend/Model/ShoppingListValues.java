@@ -10,8 +10,7 @@ import java.util.ArrayList;
  */
 
 public interface ShoppingListValues {
-    ArrayList<Food> ShoppingListNames = new ArrayList<>();
 
-    public void addFood(ArrayList<Food> ShoppingListNames, Food foodString);
-    public void removeFood(ArrayList<Food> ShoppingListNames, int which);
+    void addFood(ArrayList<Food> ShoppingListNames, Food foodString);
+    void removeFood(ArrayList<Food> ShoppingListNames, int which);
 }

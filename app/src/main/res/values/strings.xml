@@ -36,4 +36,12 @@
         <item>Snacks</item>
         <item>Vegetables</item>
     </string-array>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="name_of_food">Name of food</string>
+    <string name="description_of_food">Description of Food</string>
+    <string name="number_of_items_left">Number of items left</string>
+    <string name="date_of_expiration">Date of expiration</string>
+    <string name="price_for_one_item">Price for one item</string>
+    <string name="enter_the_amount_of_food_left_before_you_want_to_be_reminded">Enter the amount of food left before you want to be reminded</string>
+    <string name="enter_the_number_of_days_you_want_to_be_reminded_before_expiration">Enter the number of days you want to be reminded before expiration</string>
 </resources>

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import com.example.ebonycalloway.fridgefriend.Controller.MyDBHandler;
 import com.example.ebonycalloway.fridgefriend.POJO.Food;
@@ -68,19 +69,25 @@ public class AddItem extends AppCompatActivity {
 
     public void addFood(){
         newFood = new Food();
-        newFood.setName(foodName.getText().toString());
-        newFood.setDescription(foodDescription.getText().toString());
-        newFood.setAmountLeft(Double.valueOf(amountLeft.getText().toString()));
-        newFood.setPrice(Double.valueOf(price.getText().toString()));
-        String thing = expiration.getText().toString();
-        newFood.setExpiration(thing);
-        newFood.setRating((double)ratingBar.getRating());
-        newFood.setHealthGroup(spinner.getSelectedItemPosition());
-        dbHandler = new MyDBHandler(this, null, null, 1);
-        dbHandler.addFood(newFood);
-        //TODO: Expiration date?
+
+        if(foodName.getText().toString().equals("") || foodDescription.getText().toString().equals("") || amountLeft.getText().toString().equals("") || price.getText().toString().equals("") || expiration.getText().toString().equals("")){
+            Toast.makeText(getApplicationContext(),"You must enter name, description, amount, price, and expiration values",Toast.LENGTH_LONG).show();
+        }
+        else {
+            newFood.setName(foodName.getText().toString());
+            newFood.setDescription(foodDescription.getText().toString());
+            newFood.setAmountLeft(Double.valueOf(amountLeft.getText().toString()));
+            newFood.setPrice(Double.valueOf(price.getText().toString()));
+            String thing = expiration.getText().toString();
+            newFood.setExpiration(thing);
+            newFood.setRating((double)ratingBar.getRating());
+            newFood.setHealthGroup(spinner.getSelectedItemPosition());
+            newFood.setShoppingList(false);
+            dbHandler = new MyDBHandler(this, null, null, 2);
+            dbHandler.addFood(newFood);
+        }
         Intent i = new Intent(AddItem.this, FoodLibrary.class);
-        finish();
+        finish();//What is this?
         startActivity(i);
     }
 }
