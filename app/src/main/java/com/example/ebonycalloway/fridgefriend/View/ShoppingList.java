@@ -32,7 +32,7 @@ public class ShoppingList extends AppCompatActivity implements ShoppingListValue
         String foods = dbHandler.shoppingListToString("alpha");
         String[] foodValues = foods.split(";");
         if(foods != null) {
-            ListAdapter foodAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, foodValues);
+            ListAdapter foodAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodValues);
             foodLV.setAdapter(foodAdapter);
             foodLV.setOnItemClickListener(
                     new AdapterView.OnItemClickListener() {
@@ -42,10 +42,6 @@ public class ShoppingList extends AppCompatActivity implements ShoppingListValue
                             String cost = String.valueOf(parent.getItemAtPosition(position)).split(":")[1];
                             String extras = dbHandler.selectFood(foodName, cost);
                             //TODO: Change amount to buy and recalculate total
-                            //Intent i = new Intent(ShoppingList.this, AddItem.class);
-                            //i.putExtra(Intent.EXTRA_TEXT, extras);
-                            //startActivity(i);
-
                         }
 
                     }
@@ -92,7 +88,7 @@ public class ShoppingList extends AppCompatActivity implements ShoppingListValue
                     }
             );
         }else{
-            Toast toast = Toast.makeText(getApplicationContext(),"You don't need to go shopping",Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(),"You don't need to go shopping",Toast.LENGTH_SHORT).show();
         }
     }
 
