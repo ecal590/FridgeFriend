@@ -24,12 +24,12 @@ public class FoodLibrary extends AppCompatActivity {
         setContentView(R.layout.activity_food_library);
 
         final MyDBHandler dbHandler;
-        dbHandler = new MyDBHandler(this, null, null, 1);
-        String foodString = dbHandler.databaseToString("alpha");
-        ListView foodLV = (ListView) findViewById(R.id.foodListView);
+        dbHandler = new MyDBHandler(this, null, null, 3);
+        String foodString = dbHandler.fridgeToString("alpha");
+        ListView foodLV = findViewById(R.id.foodListView);//TODO: Only fridge items
         if(!foodString.equals("")) {
             String[] foods = foodString.split(";");
-            ListAdapter foodAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, foods);
+            ListAdapter foodAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foods);
             foodLV.setAdapter(foodAdapter);
         }
         foodLV.setOnItemClickListener(

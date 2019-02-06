@@ -15,6 +15,7 @@ public class Food {
     private double rating;
     private int healthGroup;
     private boolean shoppingList;
+    private boolean fridgeList;
 
     @Override
     public String toString() {
@@ -27,6 +28,7 @@ public class Food {
                 ", rating=" + rating +
                 ", healthGroup=" + healthGroup +
                 ", shoppingList=" + shoppingList +
+                ", fridgeList=" + fridgeList +
                 '}';
     }
 
@@ -92,5 +94,13 @@ public class Food {
 
     public void setShoppingList(boolean shoppingList) {
         this.shoppingList = shoppingList;
+    }
+
+    public boolean isFridgeList() {
+        return fridgeList;
+    }
+
+    public void setFridgeList(boolean fridgeList) {
+        this.fridgeList = fridgeList;
     }
 }

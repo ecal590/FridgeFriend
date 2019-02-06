@@ -18,10 +18,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageButton settingB = (ImageButton) findViewById(R.id.settingsButton);
-        Button addB = (Button) findViewById(R.id.addItemButton);
-        Button viewLibraryB = (Button) findViewById(R.id.viewLibraryButton);
-        Button shoppingListB = (Button) findViewById(R.id.shoppingListButton);
+        ImageButton settingB = findViewById(R.id.settingsButton);
+        Button addB = findViewById(R.id.addItemButton);
+        Button viewLibraryB = findViewById(R.id.viewLibraryButton);
+        Button shoppingListB = findViewById(R.id.shoppingListButton);
 
         settingB.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -57,5 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
 //TODO: Full content backup in manifest?
         //TODO: Action-View intent filer, indexable by Google Search
+        //TODO: New activity, food library, stores all past foods you have had and add them to the fridge or shopping list from there!!! DO THIS
     }
 }

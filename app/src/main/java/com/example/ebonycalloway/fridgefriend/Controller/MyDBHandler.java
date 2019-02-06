@@ -14,7 +14,7 @@ import com.example.ebonycalloway.fridgefriend.POJO.Food;
 
 public class MyDBHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "fridgeDB.db";
     private static final String TABLE_FOOD = "food";
     private static final String COLUMN_ID = "_id";
@@ -26,6 +26,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     private static final String COLUMN_FOODRATING = "foodrating";
     private static final String COLUMN_FOODHEALTH = "foodhealth";
     private static final String COLUMN_FOODSHOPPING = "foodshopping";
+    private static final String COLUMN_FOODFRIDGE = "foodfridge";
 
     public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -42,7 +43,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 COLUMN_FOODEXPIRATION + " TEXT, " +
                 COLUMN_FOODRATING + " TEXT, " +
                 COLUMN_FOODHEALTH+ " TEXT, " +
-                COLUMN_FOODSHOPPING + " TEXT);";
+                COLUMN_FOODSHOPPING+ " TEXT, " +
+                COLUMN_FOODFRIDGE + " TEXT);";
         sqLiteDatabase.execSQL(query);
     }
 
@@ -64,6 +66,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
             values.put(COLUMN_FOODRATING, food.getRating());
             values.put(COLUMN_FOODHEALTH, food.getHealthGroup());
             values.put(COLUMN_FOODSHOPPING, food.isShoppingList());
+            values.put(COLUMN_FOODFRIDGE, food.isFridgeList());
             SQLiteDatabase db = getWritableDatabase();
             db.insert(TABLE_FOOD, null, values);
             db.close();
@@ -78,6 +81,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
             values.put(COLUMN_FOODRATING, food.getRating());
             values.put(COLUMN_FOODHEALTH, food.getHealthGroup());
             values.put(COLUMN_FOODSHOPPING, food.isShoppingList());
+            values.put(COLUMN_FOODFRIDGE, food.isFridgeList());
             SQLiteDatabase db = getWritableDatabase();
             String tempString = "foodname =\"" + food.getName()+ "\" AND " + "fooddescription =\"" + food.getDescription() +"\"";
             db.update(TABLE_FOOD, values, tempString,null);
@@ -115,6 +119,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 dbString += c.getString(c.getColumnIndex("foodhealth"));
                 dbString += ",";
                 dbString += c.getString(c.getColumnIndex("foodshopping"));
+                dbString += ",";
+                dbString += c.getString(c.getColumnIndex("foodfridge"));
                 dbString += ";";
             }
             c.moveToNext();
@@ -126,24 +132,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
 
-    public String databaseToString(String order){
+    public String fridgeToString(String order){
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
         String query;
-        switch (order) {
-            case "alpha":
-                query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODNAME;
-                break;
-            case "group":
-                query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODHEALTH;
-                break;
-            case "rating":
-                query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODRATING;
-                break;
-            default:
-                query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODEXPIRATION;
-                break;
-        }
+        query = "SELECT * FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODFRIDGE + "=\"" + "true"  +"\""+ " ORDER BY " + COLUMN_FOODEXPIRATION;//TODO:Want to order?
+
         //Cursor points to a location in your results
         Cursor c = db.rawQuery(query, null);
         //Move to the first row in your results
@@ -193,6 +187,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 dbString += c.getString(c.getColumnIndex("foodhealth"));
                 dbString += ",";
                 dbString += c.getString(c.getColumnIndex("foodshopping"));
+                dbString += ",";
+                dbString += c.getString(c.getColumnIndex("foodfridge"));
                 dbString += ";";
             }
             c.moveToNext();
@@ -208,13 +204,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         String query;
         if(order.equals("alpha")) {
-            query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODNAME;
+            query = "SELECT * FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODSHOPPING + "=\"" + "true"  +"\""+ " ORDER BY " + COLUMN_FOODNAME;
         }else if(order.equals("group")){
-            query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODHEALTH;
+            query = "SELECT * FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODSHOPPING + "=\"" + "true"  +"\""+ " ORDER BY " + COLUMN_FOODHEALTH;
         }else if(order.equals("rating")){
-            query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODRATING;
+            query = "SELECT * FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODSHOPPING + "=\"" + "true"  +"\""+ " ORDER BY " + COLUMN_FOODRATING;
         }else{
-            query = "SELECT * FROM " + TABLE_FOOD + " WHERE 1" + " ORDER BY " + COLUMN_FOODEXPIRATION;
+            query = "SELECT * FROM " + TABLE_FOOD + " WHERE " + COLUMN_FOODSHOPPING + "=\"" + "true"  +"\""+ " ORDER BY " + COLUMN_FOODEXPIRATION;
         }
         //Cursor points to a location in your results
         Cursor c = db.rawQuery(query, null);

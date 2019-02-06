@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.ebonycalloway.fridgefriend.Controller.MyDBHandler;
@@ -25,6 +24,7 @@ public class AddItem extends AppCompatActivity {
     EditText expiration;
     RatingBar ratingBar;
     Spinner spinner;
+    RadioGroup listGroup;
 
     Button add;
     Food newFood;
@@ -35,14 +35,15 @@ public class AddItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
-        foodName = (EditText) findViewById(R.id.nameEditText);
-        foodDescription = (EditText) findViewById(R.id.descriptionEditText);
-        amountLeft = (EditText) findViewById(R.id.amountLeftEditText);
-        price = (EditText) findViewById(R.id.priceEditText);
-        expiration = (EditText) findViewById(R.id.expirationEditText);
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        spinner = (Spinner) findViewById(R.id.groupSpinner);
-        add = (Button) findViewById(R.id.addButton);
+        foodName = findViewById(R.id.nameEditText);
+        foodDescription = findViewById(R.id.descriptionEditText);
+        amountLeft = findViewById(R.id.amountLeftEditText);
+        price = findViewById(R.id.priceEditText);
+        expiration = findViewById(R.id.expirationEditText);
+        ratingBar = findViewById(R.id.ratingBar);
+        spinner = findViewById(R.id.groupSpinner);
+        add = findViewById(R.id.addButton);
+        listGroup = findViewById(R.id.radioGroup);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,8 +83,18 @@ public class AddItem extends AppCompatActivity {
             newFood.setExpiration(thing);
             newFood.setRating((double)ratingBar.getRating());
             newFood.setHealthGroup(spinner.getSelectedItemPosition());
-            newFood.setShoppingList(false);
-            dbHandler = new MyDBHandler(this, null, null, 2);
+            if(listGroup.getCheckedRadioButtonId() == R.id.radioButton){
+                newFood.setShoppingList(false);
+                newFood.setFridgeList(true);
+            }else if(listGroup.getCheckedRadioButtonId() == R.id.radioButton2){
+                newFood.setShoppingList(true);
+                newFood.setFridgeList(false);
+            }
+            else{
+                newFood.setShoppingList(true);
+                newFood.setFridgeList(true);
+            }
+            dbHandler = new MyDBHandler(this, null, null, 3);
             dbHandler.addFood(newFood);
         }
         Intent i = new Intent(AddItem.this, FoodLibrary.class);

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.ebonycalloway.fridgefriend.Controller.MyDBHandler;
@@ -27,9 +28,24 @@ public class ShoppingList extends AppCompatActivity implements ShoppingListValue
         setContentView(R.layout.activity_shopping_list);
 
         final MyDBHandler dbHandler;
-        dbHandler = new MyDBHandler(this, null, null, 2);
-        ListView foodLV = (ListView) findViewById(R.id.shoppingList);
-        String foods = dbHandler.shoppingListToString("alpha");
+        dbHandler = new MyDBHandler(this, null, null, 3);
+        ListView foodLV = findViewById(R.id.shoppingList);
+        RadioGroup group = findViewById(R.id.radioGroup);
+
+        String order;
+        if(group.getCheckedRadioButtonId() == R.id.radioButton ){
+            order = "alpha";
+        }
+        else if(group.getCheckedRadioButtonId() == R.id.radioButton2 ){
+            order = "group";
+        }
+        else if(group.getCheckedRadioButtonId() == R.id.radioButton3 ){
+            order = "rating";
+        }
+        else {
+            order = "expiration";
+        }
+        String foods = dbHandler.shoppingListToString(order);
         String[] foodValues = foods.split(";");
         if(foods != null) {
             ListAdapter foodAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodValues);

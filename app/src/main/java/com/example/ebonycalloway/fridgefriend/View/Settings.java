@@ -28,12 +28,12 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        remindPics = (ToggleButton) findViewById(R.id.remindPicturesToggleButton);
-        remindExpire = (ToggleButton) findViewById(R.id.remindExpireToggleButton);
-        remindLow = (ToggleButton) findViewById(R.id.remindLowToggleButton);
-        daysExpire = (EditText) findViewById(R.id.dayseditText);
-        lowAmount = (EditText) findViewById(R.id.amountLeftEditText);
-        saveButton = (Button) findViewById(R.id.saveButton);
+        remindPics = findViewById(R.id.remindPicturesToggleButton);
+        remindExpire = findViewById(R.id.remindExpireToggleButton);
+        remindLow = findViewById(R.id.remindLowToggleButton);
+        daysExpire = findViewById(R.id.dayseditText);
+        lowAmount = findViewById(R.id.amountLeftEditText);
+        saveButton = findViewById(R.id.saveButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +49,12 @@ public class Settings extends AppCompatActivity {
         daysExpire.setText(shared.getInt("DaysExpire",0) + "");
         lowAmount.setText(shared.getInt("AmountLeft",0) + "");
 
-
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveSettings(view);
+            }
+        });
     }
     public void saveSettings(View view){
         Intent intent = new Intent(this,MainActivity.class);
@@ -60,8 +65,8 @@ public class Settings extends AppCompatActivity {
         picRemind = remindPics.isChecked();
         expireRemind = remindExpire.isChecked();
         lowRemind = remindLow.isChecked();
-        daysToExpire = 0 + Integer.parseInt(daysExpire.getText().toString());
-        amountLow = 0 + Integer.parseInt(lowAmount.getText().toString());
+        daysToExpire = Integer.parseInt(daysExpire.getText().toString());
+        amountLow = Integer.parseInt(lowAmount.getText().toString());
 
         SharedPreferences shared = this.getSharedPreferences("Settings",MODE_PRIVATE);
         SharedPreferences.Editor editor = shared.edit();
@@ -70,7 +75,7 @@ public class Settings extends AppCompatActivity {
         editor.putBoolean("LowRemind",lowRemind);
         editor.putInt("DaysExpire",daysToExpire);
         editor.putInt("AmountLeft",amountLow);
-        editor.commit();
+        editor.apply();//commit(immediate) v. apply(background)
 
         Context context = getApplicationContext();
         CharSequence text = "Saved";
